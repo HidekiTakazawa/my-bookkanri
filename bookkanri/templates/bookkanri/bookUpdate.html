@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>本情報変更</title>
+	</head>
+	<body>
+		<h1>{{ updateMSG }}</h1>
+		
+		<form action=""  method="POST">
+			{% csrf_token %}
+			
+			<table>{{form1.as_table}}
+					<input type="submit" value="更新">
+								
+				
+			</table>
+		</form>
+					<form action="{% url 'index' %}" method="GET">
+								
+							<input type="submit" value="戻る">
+						</form>
+
+	</body>
+</html>

@@ -1,0 +1,29 @@
+	<h1>Book List</h1>
+	<form action="{% url 'bookNew' %}" method="POST">
+		{% csrf_token %}
+		<input type="submit" value="新規登録">
+	</form>
+	<form action="" method="POST">
+			<table border=1>
+					<tr>
+					   <th>Book Name</th>
+					   <th>Author</th>
+					   <th>Publisher</th>
+					</tr>
+					{% for entry in latest_bookdata_list %}
+					<tr>
+					  <td>{{ entry.bookname }}</td>
+					  <td>{{entry.author}}</td>
+					  <td>{{entry.publisher}}</td>
+					  <td>{{entry.id}}</td>
+					  
+					  <td><a href="{% url 'bookUpdate' entry.id %}">更新</a></td>
+					  <td><a href="{% url 'bookDelete' entry.id %}">削除</a></td>
+					  
+						</tr>
+					{% endfor %}
+			  
+				  </table>
+
+	</form>
+	

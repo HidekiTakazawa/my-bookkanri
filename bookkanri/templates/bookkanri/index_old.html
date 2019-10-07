@@ -1,0 +1,9 @@
+{% if latest_bookdata_list %}
+	<ul>
+		{% for book in latest_bookdata_list %}
+			<li> <a href="bookkanri/{{ book.id }}/bookDelete/">{{ book.author }}</a></li>
+		{% endfor %}
+	</ul>
+{% else %}
+<p> No data</p>
+{% endif %}
