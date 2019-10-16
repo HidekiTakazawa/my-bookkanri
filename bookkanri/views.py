@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from .models import BookData
 from .forms import BookDataForm
 def index(request):
-    latest_bookdata_list = BookData.objects.order_by('bookname')[:10]
+    latest_bookdata_list = BookData.objects.order_by('jyanru', 'bookname')[:999]
     template = loader.get_template('bookkanri/index.html')
     context = {
         'latest_bookdata_list': latest_bookdata_list
@@ -15,30 +15,33 @@ def index(request):
 def bookNew(request):
     f = BookDataForm()
     return render(request, 'bookkanri/bookNew.html', {'form1': f})
-    
-def bookNewSave(request):
-    f = BookDataForm(request.POST or None)
-    if f.is_valid():
-        bookdata = BookData()
-        bookdata.jyanru = f.cleaned_data['jyanru']
-        bookdata.bookname = f.cleaned_data['bookname']
-        bookdata.author = f.cleaned_data['author']
-        bookdata.publisher = f.cleaned_data['publisher']
-        bookdata.purchase_date = f.cleaned_data['purchase_date']
-        bookdata.price = f.cleaned_data['price']
-        bookdata.memo = f.cleaned_data['memo']
-        bookdata.save()
-        
-        return redirect('index')
-    #return 'valid error'
-    return render(request, 'bookkanri/bookNew.html', {'form1': f})
+#####
+def bookNew(request):
+    if request.method == "POST":
+        form = BookDataForm(request.POST)
+        if form.is_valid():
+            bookdata = BookData()
+            bookdata.jyanru = form.cleaned_data['jyanru']
+            bookdata.bookname = form.cleaned_data['bookname']
+            bookdata.author = form.cleaned_data['author']
+            bookdata.publisher = form.cleaned_data['publisher']
+            bookdata.purchase_date = form.cleaned_data['purchase_date']
+            bookdata.price = form.cleaned_data['price']
+            bookdata.memo = form.cleaned_data['memo']
+            bookdata.save()
+            return redirect('index')
+    else:
+        form = BookDataForm()
+    return render(request, 'bookkanri/bookNew.html', {'form1': form})
+#####    
+
 def bookUpdate(request, bookdata_id):
     updateMSG = '変更します。'
     bookdata = BookData.objects.get(id=bookdata_id)
     if request.method == 'POST':
         f = BookDataForm(request.POST)
         if f.is_valid():
-            
+            bookdata.jyanru = f.cleaned_data['jyanru']
             bookdata.bookname = f.cleaned_data['bookname']
             bookdata.author = f.cleaned_data['author']
             bookdata.publisher = f.cleaned_data['publisher']

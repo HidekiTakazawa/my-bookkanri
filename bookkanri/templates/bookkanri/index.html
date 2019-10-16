@@ -1,29 +1,34 @@
-	<h1>Book List</h1>
-	<form action="{% url 'bookNew' %}" method="POST">
-		{% csrf_token %}
-		<input type="submit" value="新規登録">
-	</form>
-	<form action="" method="POST">
-			<table border=1>
-					<tr>
-					   <th>Book Name</th>
-					   <th>Author</th>
-					   <th>Publisher</th>
-					</tr>
-					{% for entry in latest_bookdata_list %}
-					<tr>
-					  <td>{{ entry.bookname }}</td>
-					  <td>{{entry.author}}</td>
-					  <td>{{entry.publisher}}</td>
-					  <td>{{entry.id}}</td>
-					  
-					  <td><a href="{% url 'bookUpdate' entry.id %}">更新</a></td>
-					  <td><a href="{% url 'bookDelete' entry.id %}">削除</a></td>
-					  
-						</tr>
-					{% endfor %}
-			  
-				  </table>
-
-	</form>
+	{% extends 'bookkanri/book_base.html' %}
+		{%block content %}
 	
+				<form action="" method="POST">
+						<table border=1>
+								
+								<th>ジャンル</th>		
+								<th>書名</th>
+								<th>著者名</th>
+								<th>出版社</th>
+								<th>定価</th>
+								<th>メモ</th>
+								</tr>
+								{% for entry in latest_bookdata_list %}
+								<tr>
+								<td>{{ entry.jyanru }}</td>
+				
+								<td>{{ entry.bookname }}</td>
+								<td>{{entry.author}}</td>
+								<td>{{entry.publisher}}</td>
+								<td>{{entry.price}}</td>
+								<td>{{entry.memo}}</td>
+								<td>{{entry.id}}</td>
+								<td><a href="{% url 'bookUpdate' entry.id %}">変更</a></td>
+								<td><a href="{% url 'bookDelete' entry.id %}">削除</a></td>
+						
+								</tr>
+								{% endfor %}
+						
+							</table>
+
+				</form>
+			{% endblock %}
+				

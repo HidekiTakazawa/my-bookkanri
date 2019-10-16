@@ -1,0 +1,22 @@
+{% load static %}
+<html>
+    <head>
+        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static 'css/bookkanri.css' %}">
+        <title>高沢秀樹　読書管理</title>
+    </head>
+    <body>
+        <div class="page-header">
+            <a href="{% url 'bookNew' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+            <h1><a href="/">高沢秀樹 読書管理</a></h1>
+        </div>
+        <div class="content container">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+    </body>
+
+  
